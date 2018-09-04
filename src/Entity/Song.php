@@ -33,4 +33,15 @@ class Song
      */
 
     public $album;
+
+    function setAlbum($album){
+        $this->album=$album;
+    }
+
+    function setTitle($title){
+        $this->title=$title;
+    }
+    function setLength($length){
+        $this->length=$length;
+    }
 }

@@ -19,7 +19,6 @@ class Album
     private $id;
 
 
-
     /**
      * @ORM\Column(type="string")
      */
@@ -42,9 +41,20 @@ class Album
     public $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="artist")
+     * @ORM\ManyToOne(targetEntity="Artist")
      */
-    public $artist;
+    private $artist;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Song",mappedBy="songs")
+     */
+    private  $songs;
+
+    public function __construct()
+    {
+        $this->songs = new ArrayCollection();
+    }
+
 
     /**
      *
@@ -58,6 +68,7 @@ class Album
     {
         return $this->cover;
     }
+
     public function getToken()
     {
         return $this->token;
@@ -68,20 +79,39 @@ class Album
     {
         return $this->artist;
     }
+    public function getSongs(): ?Song
+    {
+        return $this->songs;
+    }
 
-    public function setArtist(?Artist $artist): self
+    public function setArtist($artist)
     {
         $this->artist = $artist;
 
-        return $this;
     }
-
-
 
 
     public function getTitle()
     {
         return $this->title;
     }
-    //Getters and Setters
+
+    public function setToken($token)
+    {
+        $this->token=$token;
+    }
+    function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    function setCover($cover)
+    {
+        $this->cover = $cover;
+    }
+    function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
 }

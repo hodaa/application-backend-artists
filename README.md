@@ -1,32 +1,19 @@
-# Codebase backend applicants
-
-In order to judge your developer skills we would like you to do the following task.
-The task should not exceed 3 hours of working time. After that time simply stop working
-on the task.
-
-Finished or unfinished we would like to see your result and a couple of words
-of feedback from your end in order to get a better understanding of your thought process.
-
-Send your feedback by creating a pull-request from your repository to the original one:
-https://github.com/gimmenetwork/application-backend-artists
-
-We are excited to see what you folks will be handing in!
-
+##Artist Api
+Api which list artists with their albums.
 ## Requirements
 
 - PHP 7.1.3+
 - MySQL
-- Git skills
-- Github account
-- Composer skills
-- Symfony 4 skills
-    - Doctrine
+- Composer 
+- Symfony 4 
+- Doctrine
 
 ## Installation
 
-- Fork this repository
-- Clone your forked repository so that you can work on it 
-- Install the composer packages
+- Clone repository so that you can work on it 
+- Install the composer packages `Composer install`
+- create database `php bin/console doctrine:fixtures:load`
+
 
 Now you should be able to run `bin/console server:run` to start up your development server.
 

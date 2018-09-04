@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,16 +20,13 @@ class Artist
     /**
      * @ORM\Column(type="string", length=100)
      */
-    public $name;
+    private $name;
 
     /**
      * @ORM\Column(type="string",length=20,unique=true)
      */
-    public $token;
+    private $token;
 
-    function getId(){
-        return $this->id;
-    }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Album", mappedBy="artist")
@@ -42,6 +39,14 @@ class Artist
         $this->albums = new ArrayCollection();
     }
 
+    function getId(){
+        return $this->id;
+    }
+
+    function getName(){
+        return $this->name;
+    }
+
     /**
      * @return ArrayCollection
      */
@@ -50,6 +55,14 @@ class Artist
         return $this->albums;
     }
 
-    // addProduct() and removeProduct() were also added
+    public  function  setName($name){
+        $this->name=$name;
+    }
+    public  function  setToken($token){
+        $this->token=$token;
+    }
+
+
+
 
 }
