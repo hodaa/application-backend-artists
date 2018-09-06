@@ -8,7 +8,7 @@ Api which list artists with their albums.
 - Symfony 4 
 - Doctrine
 
-## Installation
+## Installation 
 
 - Clone repository so that you can work on it 
 - Install the composer packages `Composer install`
@@ -17,21 +17,8 @@ Api which list artists with their albums.
 
 Now you should be able to run `bin/console server:run` to start up your development server.
 
-## Your task
+## API Endpoints
 
-It is up to you on how you want to structure your app. Fulfill the following requirements:
-
-1. Build a database with doctrine based on the following dataset:
-    * https://gist.github.com/fightbulc/9b8df4e22c2da963cf8ccf96422437fe
-    * Import the dataset by using fixtures
-        * Artists and albums should get an additional property `token`
-            * ensure that token will be unique
-            * length of 6 characters
-            * use `App\Utils\TokenGenerator` to generate a token
-            * should look something like this `3KF6YK`
-        * Songs
-            * transform the length to seconds
-2. Make the data available via the following REST endpoints:
     * `GET /artists`
         * show all artists with `token` and `name`
         * show related albums with `token`, `title`, `cover`
@@ -41,5 +28,4 @@ It is up to you on how you want to structure your app. Fulfill the following req
         * show album data `token`, `title`, `description`, and `cover`
         * show related artist with `token` and `name`
         * show related songs with `title` and `length` (in minutes)
-    * Response should be in JSON
-    * Make sure to handle empty results with the correct response
+   

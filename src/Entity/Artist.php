@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,16 +35,35 @@ class Artist
      */
     private $albums;
 
+    /**
+     * Artist constructor.
+     */
     public function __construct()
     {
         $this->albums = new ArrayCollection();
     }
 
-    function getId(){
+    /**
+     * @return int
+     */
+    function getId(): int
+    {
         return $this->id;
     }
 
-    function getName(){
+    /**
+     * @return string
+     */
+    function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return string
+     */
+    function getName(): string
+    {
         return $this->name;
     }
 
@@ -55,14 +75,21 @@ class Artist
         return $this->albums;
     }
 
-    public  function  setName($name){
-        $this->name=$name;
-    }
-    public  function  setToken($token){
-        $this->token=$token;
+    /**
+     * @param $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
-
+    /**
+     * @param $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
 
 
 }

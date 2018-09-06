@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -27,18 +28,18 @@ class Album
     /**
      * @ORM\Column(type="string")
      */
-    public $cover;
+    private $cover;
 
     /**
      * @ORM\Column(type="string", length=20,unique=true)
      */
-    public $token;
+    private $token;
 
     /**
      * @ORM\Column(type="text")
      */
 
-    public $description;
+    private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="Artist")
@@ -46,10 +47,14 @@ class Album
     private $artist;
 
     /**
-     * @ORM\OneToMany(targetEntity="Song",mappedBy="songs")
+     * @ORM\OneToMany(targetEntity="Song",mappedBy="album")
      */
-    private  $songs;
+    private $songs;
 
+
+    /**
+     * Album constructor.
+     */
     public function __construct()
     {
         $this->songs = new ArrayCollection();
@@ -57,58 +62,97 @@ class Album
 
 
     /**
-     *
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getCover()
+    /**
+     * @return string
+     */
+    public function getCover(): string
     {
         return $this->cover;
     }
 
-    public function getToken()
+    /**
+     * @return string
+     */
+    public function getToken(): string
     {
         return $this->token;
     }
 
+    /**
+     * @return string
+     */
+    function getDescription(): string
+    {
+        return $this->description;
+    }
 
+    /**
+     * @return Artist|null
+     */
     public function getArtist(): ?Artist
     {
         return $this->artist;
     }
-    public function getSongs(): ?Song
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSongs()
     {
         return $this->songs;
     }
 
+    /**
+     * @param $artist
+     */
     public function setArtist($artist)
     {
         $this->artist = $artist;
 
     }
 
-
-    public function getTitle()
+    /**
+     * @return mixed
+     */
+    public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * @param $token
+     */
     public function setToken($token)
     {
-        $this->token=$token;
+        $this->token = $token;
     }
+
+    /**
+     * @param $title
+     */
     function setTitle($title)
     {
         $this->title = $title;
     }
 
+    /**
+     * @param $cover
+     */
     function setCover($cover)
     {
         $this->cover = $cover;
     }
+
+    /**
+     * @param $description
+     */
     function setDescription($description)
     {
         $this->description = $description;

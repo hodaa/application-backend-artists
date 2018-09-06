@@ -2,95 +2,65 @@
 
 namespace App\Controller;
 
-use App\Entity\Album;
 use App\Entity\Artist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\ArtistService;
 
 class ArtistController extends AbstractController
 {
+    private $artistService;
+
+    public function __construct(ArtistService $artistService)
+    {
+        $this->artistService = $artistService;
+    }
 
     /**
      * Lists all Artists.
      * @Route("/artists")
-     *
-     * @return array
+     * @return JsonResponse
      */
+
     public function getArtist()
     {
-        $repository = $this->getDoctrine()->getRepository(Artist::class);
-        $artists = $repository->findall();
 
+        $artists = $this->artistService->findall();
 
-        foreach ($artists as $artist) {
-            if ($artist->getAlbums()) {
-                foreach ($artist->getAlbums() as $album) {
-                    $artists[$artist->getId()][] = [
-                        "title" => $album->getTitle(),
-                        "cover" => $album->getCover(),
-                        "token" => $album->getToken()];
-                }
-            }
+        $artistResult = [];
+
+        foreach ($artists as $key => $artist) {
+            $artistResult[] = $this->artistService->getArtistData($artist);
+            $artistResult[$key]["albums"] = $this->artistService->getArtistAlbums($artist);
         }
-        return new JsonResponse($artists);
+        return new JsonResponse($artistResult);
     }
 
+
     /**
-     * @Route("/artists/{token}", name="product_show")
+     * @Route("/artists/{token}")
+     * @param $token
+     * @return JsonResponse
      */
+
     public function show($token)
     {
-        $artist = $this->getDoctrine()
-            ->getRepository(Artist::class)
-            ->findOneBy(["token" => $token]);
+
+        $artist = $this->artistService->findByToken($token);
 
         if (!$artist) {
             throw $this->createNotFoundException(
                 'No artist found for token ' . $token
             );
         }
-        foreach ($artist->getAlbums() as $album) {
-            $albums[] = [
-                "title" => $album->getTitle(),
-                "cover" => $album->getCover(),
-                "token" => $album->getToken()];
-        }
 
-        return new JsonResponse($albums);
+        $result = $this->artistService->getArtistData($artist);
+
+        $result['albums'] = $this->artistService->getArtistAlbums($artist);
+
+        return new JsonResponse($result);
     }
-    /**
-     * @Route("/albums/{token}")
-     */
-    public function showAlbums($token)
-    {
-        $album= $this->getDoctrine()
-            ->getRepository(Album::class)
-            ->findOneBy(["token" => $token]);
 
 
-        if (!$album) {
-            throw $this->createNotFoundException(
-                'No artist found for token ' . $token
-            );
-        }
-//        foreach ($album->getArtist() as $artist) {
-//            $artist[] = [
-//                "title" => $artist->getName(),
-//                "token" => $artist->getToken()
-//            ];
-//
-//        }
-//        dd($album->getSongs());
-//        foreach ($album->getSongs() as $song) {
-//            $artist[] = [
-//                "title" => $song->geTitle(),
-//                "Length" => $song->getLength()];
-//
-//
-//        }
-
-        return new JsonResponse($album);
-    }
 }

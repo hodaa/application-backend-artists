@@ -15,33 +15,63 @@ class Song
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    public $title;
+    private $title;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
 
-    public $length;
+    private $length;
 
     /**
      * @ORM\ManyToOne(targetEntity="album")
      */
 
-    public $album;
+    private $album;
 
-    function setAlbum($album){
-        $this->album=$album;
+    /**
+     * @return string
+     */
+    function getTitle(): string
+    {
+        return $this->title;
     }
 
-    function setTitle($title){
-        $this->title=$title;
+    /**
+     * @return string
+     */
+    function getLength(): string
+    {
+        return $this->length;
     }
-    function setLength($length){
-        $this->length=$length;
+
+    /**
+     * @param $album
+     * @return Album|null
+     */
+    function setAlbum($album)
+    {
+        $this->album = $album;
+    }
+
+    /**
+     * @param $title
+     */
+    function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param $length
+     */
+    function setLength($length)
+    {
+        $this->length = $length;
     }
 }
