@@ -1,5 +1,5 @@
-##Artist Api
-Api which list artists with their albums.
+##ArtistApi
+Api which list artists with their albums using Symfony4 framework.
 ## Requirements
 
 - PHP 7.1.3+
