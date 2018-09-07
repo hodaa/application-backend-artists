@@ -1,4 +1,6 @@
-##ArtistApi
+
+## ArtistApi
+
 Api which list artists with their albums using Symfony4 framework.
 ## Requirements
 
